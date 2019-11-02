@@ -1,0 +1,25 @@
+import tkinter as tk
+from tkinter import *
+import pyautogui
+
+def changeLabel():
+    coords = pyautogui.position()
+    coordLabel['text'] = coords
+    window.after(10, lambda: changeLabel())
+
+def where(posn):
+   cx=w.winfo_pointerx() - w.winfo_rootx()
+   cy=w.winfo_pointery() - w.winfo_rooty()
+
+
+
+window = Tk()
+window.title("Mouse Position")
+window.overrideredirect(1)
+window.bind("<Motion>",where)
+coordLabel = tk.Label(text='')
+coordLabel.grid(row=1, column=1, sticky="w", padx=10)
+changeLabel()
+
+window.mainloop()
+
