@@ -5,47 +5,42 @@ import time
 import tkinter as tk
 import keyboard
 
-global stop
-stop = 0
-
-
-def changeLabel():
-    global stop
-    coords = pyautogui.position()
-    if stop == 0:
-        coordLabel['text'] = coords
-
-    window.after(10, lambda: changeLabel())
-
-def change():
-    global stop
+class Main():
     stop = 0
+    def __init__(self, parent, *args, **kwargs):
+        self.parent = parent
+        self.center_window()
+        root.title("Mouse Position")
+        root.overrideredirect(1)
+        root.attributes("-topmost", True)
+        root.wm_attributes('-transparentcolor', root['bg'])
+        self.coordLabel = tk.Label(text='', borderwidth=2, bg="#D3D3D3")
+        self.coordLabel.grid(row=1, column=1, sticky="w", padx=10)
+        self.changeLabel()
 
-def center_window():
-    global stop
-    mousepos = pyautogui.position()
-    intx, inty = mousepos
-    xcoord = intx + 5
-    ycoord = inty + 10
-    editedPos = (xcoord, ycoord)
-    if keyboard.is_pressed('z'):  # if key 'z' is pressed
-        if stop == 0:
-            stop = 1
-        else:
-            change()
-    window.geometry('+%d+%d' % editedPos)
-    window.after(5, lambda: center_window())
+    def changeLabel(self):
+        coords = pyautogui.position()
+        if (self.stop) == 0:
+            self.coordLabel['text'] = coords
 
-window = Tk()
-center_window()
-window.title("Mouse Position")
-window.overrideredirect(1)
-window.attributes("-topmost", True)
-window.wm_attributes('-transparentcolor', window['bg'])
-coordLabel = tk.Label(text='', borderwidth=2, bg="#D3D3D3")
-coordLabel.grid(row=1, column=1, sticky="w", padx=10)
-changeLabel()
-
-window.mainloop()
+        root.after(10, lambda: self.changeLabel())
 
 
+    def center_window(self):
+        mousepos = pyautogui.position()
+        intx, inty = mousepos
+        xcoord = intx + 5
+        ycoord = inty + 10
+        editedPos = (xcoord, ycoord)
+        if keyboard.is_pressed('z'):  # if key 'z' is pressed
+            if self.stop == 0:
+                self.stop = 1
+            else:
+                self.stop = 0
+        root.geometry('+%d+%d' % editedPos)
+        root.after(5, lambda: self.center_window())
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    Main(root)
+    root.mainloop()
