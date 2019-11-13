@@ -28,7 +28,7 @@ def center_window():
     xcoord = intx + 5
     ycoord = inty + 10
     editedPos = (xcoord, ycoord)
-    if keyboard.is_pressed('z'):  # if key 'a' is pressed
+    if keyboard.is_pressed('z'):  # if key 'z' is pressed
         if stop == 0:
             stop = 1
         else:
