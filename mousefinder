@@ -5,6 +5,7 @@ import time
 import tkinter as tk
 import keyboard
 
+#Main Gui put into a class for future uses
 class Main():
     stop = 0
     def __init__(self, parent, *args, **kwargs):
@@ -18,6 +19,7 @@ class Main():
         self.coordLabel.grid(row=1, column=1, sticky="w", padx=10)
         self.changeLabel()
 
+#Changes the coordinates of the mouse
     def changeLabel(self):
         coords = pyautogui.position()
         if (self.stop) == 0:
@@ -25,7 +27,7 @@ class Main():
 
         root.after(10, lambda: self.changeLabel())
 
-
+#Makes the tkinter GUI follow the mouse
     def center_window(self):
         mousepos = pyautogui.position()
         intx, inty = mousepos
